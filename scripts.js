@@ -10,56 +10,53 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
+    const resultsDiv1 = document.getElementById("results1");
+    resultsDiv1.textContent = "The Computer plays " + computerChoice;
+    const resultsDiv2 = document.getElementById("results2");
+    const scoreDiv = document.getElementById("score");
     if (humanChoice === computerChoice){
-        console.log("You tie, no one wins!");
+        resultsDiv2.textContent = "You tie, no one wins!";
     }
     else if (humanChoice === "rock" && computerChoice === "scissors") {
-        console.log("Human wins, Rock smashes scissors!");
+        resultsDiv2.textContent = "Human wins, Rock smashes scissors!";
         humanScore++;
     }
     else if (humanChoice === "rock" && computerChoice === "paper") {
-        console.log("Computer wins, Paper covers rock!");
+        resultsDiv2.textContent = "Computer wins, Paper covers rock!";
         computerScore++;
     }
     else if (humanChoice === "paper" && computerChoice === "rock") {
-        console.log("Human wins, paper covers rock!");
+        resultsDiv2.textContent = "Human wins, paper covers rock!";
         humanScore++;
     }
     else if (humanChoice === "paper" && computerChoice === "scissors") {
-        console.log("Computer wins, scissors cuts paper!");
+        resultsDiv2.textContent = "Computer wins, scissors cuts paper!";
         computerScore++;
     }
     else if (humanChoice === "scissors" && computerChoice === "paper") {
-        console.log("Human wins, scissors cuts paper!");
+        resultsDiv2.textContent = "Human wins, scissors cuts paper!";
         humanScore++;
     }
     else if (humanChoice === "scissors" && computerChoice === "rock") {
-        console.log("Computer wins, rock crushes scissors!");
+        resultsDiv2.textContent = "Computer wins, rock crushes scissors!";
         computerScore++;
     }
-    else console.log("You're trying to cheat, only use Rock, Paper, or Scissors!");
-}
-
-function playGame() {
-    let humanSelection;
-    let computerSelection;
-    for (let i = 0; i < 5; i++) {
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();
-        console.log("Computer chooses: " + computerSelection);
-        console.log("Human chooses: " + humanSelection);
-        playRound(humanSelection, computerSelection);
+    else resultsDiv2.textContent = "You're trying to cheat, only use Rock, Paper, or Scissors!";
+    
+    if (humanScore && computerScore < 5) {
+        scoreDiv.textContent = "Human - " + humanScore + " Computer - " + computerScore;
     }
-
-    console.log("Final score: Human - " + humanScore + " Computer - " + computerScore);
-    if (humanScore > computerScore) console.log("Human wins!");
-    else if (computerScore > humanScore) console.log("Computer wins!");
-    else console.log("It's a tie game!");
-
+    else if (humanScore >= 5) scoreDiv.textContent = "That makes 5 points, Human player wins!";
+    else scoreDiv.textContent = "That makes 5 points, Computer wins!";
 }
 
 let humanScore = 0;
 let computerScore = 0;
 
-playGame();
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playRound(button.id, getComputerChoice())
+    });
+});
