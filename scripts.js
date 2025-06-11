@@ -43,7 +43,7 @@ function playRound(humanChoice, computerChoice) {
     }
     else resultsDiv2.textContent = "You're trying to cheat, only use Rock, Paper, or Scissors!";
     
-    if (humanScore && computerScore < 5) {
+    if (humanScore < 5 && computerScore < 5) {
         scoreDiv.textContent = "Human - " + humanScore + " Computer - " + computerScore;
     }
     else if (humanScore >= 5) scoreDiv.textContent = "That makes 5 points, Human player wins!";
